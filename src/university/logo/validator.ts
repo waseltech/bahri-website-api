@@ -1,21 +1,18 @@
 import { body, check } from "express-validator";
 
-export const newsValidator = [
+export const logoValidator = [
   body("titleAr")
     .notEmpty({
       ignore_whitespace: true,
     })
-    .withMessage("arabic title require")
+    .withMessage("arabic name require")
     .isString()
-    .withMessage("arabic title must be string"),
+    .withMessage("arabic name must be string"),
   body("titleEn")
     .notEmpty({
       ignore_whitespace: true,
     })
-    .withMessage("english title require")
-    .isString()
-    .withMessage("english title must be string"),
-
+    .withMessage("english name require"),
   body("descriptionAr")
     .notEmpty({
       ignore_whitespace: true,
@@ -27,44 +24,32 @@ export const newsValidator = [
     .notEmpty({
       ignore_whitespace: true,
     })
-    .withMessage("english description require")
-    .isString()
-    .withMessage("arabic description must be string"),
+    .withMessage("english description require"),
 ];
 
-export const newsUpdateValidator = [
+export const logoUpdateValidator = [
   check("titleAr")
     .if(body("titleAr").exists())
     .notEmpty({
       ignore_whitespace: true,
     })
-    .withMessage("arabic title require")
-    .isString()
-    .withMessage("arabic title must be string"),
+    .withMessage("arabic name require"),
   check("titleEn")
     .if(body("titleEn").exists())
     .notEmpty({
       ignore_whitespace: true,
     })
-    .withMessage("english title require")
-    .isString()
-    .withMessage("english title must be string"),
-
+    .withMessage("english name require"),
   check("descriptionAr")
     .if(body("descriptionAr").exists())
     .notEmpty({
       ignore_whitespace: true,
     })
-    .withMessage("arabic description require")
-    .isString()
-    .withMessage("arabic description must be string"),
-
+    .withMessage("arabic description require"),
   check("descriptionEn")
     .if(body("descriptionEn").exists())
     .notEmpty({
       ignore_whitespace: true,
     })
-    .withMessage("english description require")
-    .isString()
-    .withMessage("arabic description must be string"),
+    .withMessage("english description require"),
 ];

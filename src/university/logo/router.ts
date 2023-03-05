@@ -4,16 +4,16 @@ import {
   validationMiddleware,
 } from "@meemsd/common";
 import { Router, Request, Response } from "express";
-import { News } from "./model";
-import { newsUpdateValidator, newsValidator } from "./validator";
+import { Logo } from "./model";
+import { logoUpdateValidator, logoValidator } from "./validator";
 
 const router: Router = Router();
 
 router.get("/", async (req, res) => {
   try {
-    const colleges = await News.find();
+    const logos = await Logo.find();
 
-    res.status(200).json(colleges);
+    res.status(200).json(logos);
   } catch (error) {
     throw new InternalServerError();
   }
@@ -23,11 +23,11 @@ router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
-    const college = await News.findById(id);
+    const logo = await Logo.findById(id);
 
-    if (!college) throw new NotFoundError();
+    if (!logo) throw new NotFoundError();
 
-    res.status(200).json(college);
+    res.status(200).json(logo);
   } catch (error) {
     throw new NotFoundError();
   }
@@ -35,29 +35,33 @@ router.get("/:id", async (req, res) => {
 
 router.post(
   "/",
-  newsValidator,
+  logoValidator,
   validationMiddleware,
   async (req: Request, res: Response) => {
     try {
-      const college = await News.build(req.body).save();
-      return res.status(201).json(college);
+      const logo = await Logo.build(req.body).save();
+      return res.status(201).json(logo);
     } catch (error) {
-      throw new InternalServerError(JSON.stringify(error));
+      throw new InternalServerError();
     }
   }
 );
 
 router.put(
   "/:id",
-  newsUpdateValidator,
+  logoUpdateValidator,
   validationMiddleware,
   async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
-      const college = await News.findByIdAndUpdate(id, req.body, { new: true });
-      if (!college) throw new NotFoundError();
-      return res.status(201).json(college);
+
+      const logo = await Logo.findByIdAndUpdate(id, req.body, {
+        new: true,
+      });
+      if (!logo) throw new NotFoundError();
+      return res.status(200).json(logo);
     } catch (error) {
+      console.log(error);
       throw new InternalServerError(JSON.stringify(error));
     }
   }
@@ -67,9 +71,9 @@ router.delete("/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
-    const college = await News.findByIdAndDelete(id);
+    const logo = await Logo.findByIdAndDelete(id);
 
-    if (!college) throw new NotFoundError();
+    if (!logo) throw new NotFoundError();
 
     res.status(200).json({ message: "dlete succssful" });
   } catch (error) {
@@ -77,4 +81,4 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-export { router as newsRouter };
+export { router as logoRouter };
