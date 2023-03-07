@@ -53,3 +53,9 @@ export const visionMissionUpdateValidator = [
     })
     .withMessage("english description require"),
 ];
+
+export const visionMissionSortValidator = [
+  body("sort").isArray().withMessage("sort must be array"),
+  body("sort.*.id").notEmpty().withMessage("sort id require"),
+  body("sort.*.seqNo").notEmpty().withMessage("sort seqNo require"),
+];

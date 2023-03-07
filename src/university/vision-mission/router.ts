@@ -4,8 +4,12 @@ import {
   validationMiddleware,
 } from "@meemsd/common";
 import { Router, Request, Response } from "express";
+import { body } from "express-validator";
+import mongoose from "mongoose";
+import { BulkArray } from "../../helpers/db.helper";
 import { VisionMission } from "./model";
 import {
+  visionMissionSortValidator,
   visionMissionUpdateValidator,
   visionMissionValidator,
 } from "./validator";
@@ -14,7 +18,7 @@ const router: Router = Router();
 
 router.get("/", async (req, res) => {
   try {
-    const visionMissions = await VisionMission.find();
+    const visionMissions = await VisionMission.find().sort({ seqNo: 1 });
 
     res.status(200).json(visionMissions);
   } catch (error) {
@@ -87,5 +91,24 @@ router.delete("/:id", async (req, res) => {
     throw new NotFoundError();
   }
 });
+
+router.post(
+  "/sort",
+  visionMissionSortValidator,
+  validationMiddleware,
+  async (req: Request, res: Response) => {
+    try {
+      const { sort } = req.body;
+
+      const bulkArr = BulkArray(sort);
+
+      VisionMission.bulkWrite(bulkArr);
+
+      return res.status(200).json({ message: "sort successful" });
+    } catch (error) {
+      throw new InternalServerError();
+    }
+  }
+);
 
 export { router as visionMissionRouter };
