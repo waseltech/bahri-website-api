@@ -6,15 +6,15 @@ sss
 GET  http://localhost:4000/api/vision-mission/6401af0be2dc006818125376
 
 ### delete college
-DELETE   http://localhost:4000/api/vision-mission/64050542a42711f0d5c7eec3
+DELETE   http://localhost:4000/api/vision-mission/6408485bf0c58396c7756543
 
 ###  create college
 POST  http://localhost:4000/api/vision-mission
 Content-Type: application/json
 
 {
-    "titleAr": "رؤية الجامعة",
-    "titleEn": "رؤية الجامعة",
+    "titleAr": " المعرفية الرائدة ",
+    "titleEn": " المعرفية الرائدة ",
     "descriptionAr": "تطمح جامعة بحري إلى أن تصبح المؤسسة المعرفية الرائدة في إفريقيا والعالم العربي.",
      "icon": "icon",
      "seqNo": 1,
