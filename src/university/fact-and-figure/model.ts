@@ -1,15 +1,22 @@
 import { Document, Model, model, Schema } from "mongoose";
 
+export enum FactType {
+  STUDENT = "STUDENT",
+  STAFF = "STAFF",
+}
+
 export interface FactAndFigureAttrs {
   count: number;
   descriptionAr: string;
   descriptionEn: string;
+  type: FactType;
 }
 
 export interface FactAndFigureDoc extends Document {
   count: number;
   descriptionAr: string;
   descriptionEn: string;
+  type: FactType;
 }
 
 export interface FactAndFigureModel extends Model<FactAndFigureDoc> {
@@ -29,6 +36,10 @@ const factAndFigureSchema = new Schema(
     descriptionEn: {
       type: String,
       require: true,
+    },
+    type: {
+      type: String,
+      default: FactType.STUDENT,
     },
   },
   {

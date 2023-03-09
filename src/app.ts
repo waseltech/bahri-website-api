@@ -16,6 +16,7 @@ import {
   currentAdministrationRouter,
   viceChancellorMessageRouter,
 } from "./administration";
+import { eServiceRouter } from "./electronic-service";
 
 const app = express();
 const port = 4000;
@@ -41,6 +42,9 @@ app.use("/api/council", councilRouter);
 // administration routerd
 app.use("/api/vice-chancellor-message", viceChancellorMessageRouter);
 app.use("/api/current-administration", currentAdministrationRouter);
+
+// electronic-service
+app.use("/api/electronic-service", eServiceRouter);
 
 app.all("*", () => {
   throw new NotFoundError();
