@@ -1,5 +1,5 @@
 ### get all college
-GET  http://localhost:4000/news
+GET  http://localhost:4000/api/news?limit=2&type=ACADEMIC
 
 
 ### get college by id

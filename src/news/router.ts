@@ -11,7 +11,12 @@ const router: Router = Router();
 
 router.get("/", async (req, res) => {
   try {
-    const colleges = await News.find();
+    const { limit, type } = req.query;
+
+    const colleges = await News.find({ ...(type && { type }) })
+
+      .sort({ createdAt: -1 })
+      .limit(+limit);
 
     res.status(200).json(colleges);
   } catch (error) {

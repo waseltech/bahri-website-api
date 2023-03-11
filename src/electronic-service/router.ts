@@ -12,7 +12,7 @@ const router: Router = Router();
 
 router.get("/", async (req, res) => {
   try {
-    const historicalBackgrounds = await EService.find();
+    const historicalBackgrounds = await EService.find().sort({ seqNo: 1 });
 
     res.status(200).json(historicalBackgrounds);
   } catch (error) {
